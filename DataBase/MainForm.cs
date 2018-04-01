@@ -24,7 +24,6 @@ namespace DataBase
 
         private void butSignIn_Click(object sender, EventArgs e)
         {
-           
             DBUser user = db.DBUser.FirstOrDefault(u => u.Login == login.Text && u.Password == pass.Text);
             if (user != null)
             {

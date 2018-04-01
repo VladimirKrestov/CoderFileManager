@@ -21,19 +21,11 @@ namespace DataBase
             InitializeComponent();
             this.userId = userId;
             label2.Text = userName;
-            string sconn = "Data Source=1-ПК;Initial Catalog=DataBase2;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework";
-            SqlConnection sc = new SqlConnection(sconn);
-            sc.Open();
-            SqlDataReader dr = null;
-            SqlCommand cmd = new SqlCommand("Select * from [DbFile]", sc);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            IEnumerable<DbFile> files = db.DbFile.Where(f => f.UserId == 2);
+            foreach(DbFile file in files)
             {
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                {
-                    listBoxSelect.Items.Add(dr["FileName"]);
-                    listBoxDelete.Items.Add(dr["FileName"]);
-                }
+                listBoxSelect.Items.Add(file.FileName);
+                listBoxDelete.Items.Add(file.FileName);
             }
         }
 
@@ -71,10 +63,10 @@ namespace DataBase
             string sconn = "Data Source=1-ПК;Initial Catalog=DataBase2;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework";
             SqlConnection sc = new SqlConnection(sconn);
             sc.Open();
-            //DbFile dfile = db.DbFile.FirstOrDefault(f => f == listBoxDelete.SelectedItem);//////////////////////////////////
-            //int iD = dfile.Id;//////////////////////////////////////////////////////////////////////////////////////////////
+            DbFile dfile = db.DbFile.FirstOrDefault(f => f.FileName == listBoxDelete.SelectedItem.ToString());
+            int id = dfile.Id;
             SqlCommand cmd = new SqlCommand("DELETE FROM [DbFile] WHERE [Id] = @Id", sc);
-            cmd.Parameters.AddWithValue("Id", 5);
+            cmd.Parameters.AddWithValue("Id", id);
             cmd.ExecuteNonQuery();
         }
 
