@@ -68,6 +68,7 @@ namespace DataBase
             SqlCommand cmd = new SqlCommand("DELETE FROM [DbFile] WHERE [Id] = @Id", sc);
             cmd.Parameters.AddWithValue("Id", id);
             cmd.ExecuteNonQuery();
+            butUpdateDelete_Click(sender,e);
         }
 
         private void butUpdate_Click(object sender, EventArgs e)
@@ -81,6 +82,31 @@ namespace DataBase
             dr = cmd.ExecuteReader();
             while (dr.Read())
             {
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
+                if (Convert.ToInt32(dr["UserId"]) == userId)
                 if (Convert.ToInt32(dr["UserId"]) == userId)
                 {
                     listBoxSelect.Items.Add(dr["FileName"]);

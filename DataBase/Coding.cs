@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DataBase
 {
-    class Cod
+    class Coding
     {
-        public Cod(string filePath, string fileName, int userId)
+        public Coding(string filePath, string fileName, int userId)
         {
             DB db = new DB();
 
