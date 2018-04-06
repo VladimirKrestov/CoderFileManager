@@ -69,7 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cod.cs" />
+    <Compile Include="Coding.cs" />
     <Compile Include="DbFile.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -91,7 +91,7 @@
     <Compile Include="DBUser.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Decod.cs" />
+    <Compile Include="Decoding.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

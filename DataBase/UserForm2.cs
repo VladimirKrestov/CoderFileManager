@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -16,34 +17,32 @@ namespace DataBase
     {
         int userId;
         DB db = new DB();
+
         public UserForm2(string userName, int userId)
         {
-            InitializeComponent();
             this.userId = userId;
+
+            InitializeComponent();
             label2.Text = userName;
-            IEnumerable<DbFile> files = db.DbFile.Where(f => f.UserId == 2);
-            foreach(DbFile file in files)
+            IEnumerable<DbFile> files = db.DbFile.Where(f => f.UserId == userId);
+            foreach (DbFile file in files)
             {
-                listBoxSelect.Items.Add(file.FileName);
-                listBoxDelete.Items.Add(file.FileName);
+                listBoxUserFiles.Items.Add(file.FileName);
             }
         }
 
         private void butOpenFile_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "Все файлы| *.*";
-            if (dlg.ShowDialog() == DialogResult.OK)
+            DbFile dFile = db.DbFile.FirstOrDefault(f => f.FileName == listBoxUserFiles.SelectedItem.ToString());
+            if (dFile != null)
             {
-                string sconn = "Data Source=1-ПК;Initial Catalog=DataBase2;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework";
-                SqlConnection sc = new SqlConnection(sconn);
-                sc.Open();
-                SqlDataReader dr = null;
-                SqlCommand cmd = new SqlCommand("Select * from [DbFile]", sc);
-                dr = cmd.ExecuteReader();
-                //string codeFile = dr.CodetFile;
-                Decod decodeCode = new Decod();
-                decodeCode.Decoding(dlg.FileName, Path.GetFileName(dlg.FileName));
+                SaveFileDialog dlg = new SaveFileDialog();
+                dlg.Filter = "Все файлы| *.*";
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    Decoding decodeCode = new Decoding(dlg.FileName, Path.GetFileName(dlg.FileName), dFile.CodetFile);
+                }
+                Process.Start(dlg.FileName);vbzDvbvbxzvc
             }
         }
 
@@ -53,84 +52,26 @@ namespace DataBase
             dlg.Filter = "Все файлы| *.*";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                Cod codeFile = new Cod(dlg.FileName, Path.GetFileName(dlg.FileName), userId);
-
+                Coding codeFile = new Coding(dlg.FileName, Path.GetFileName(dlg.FileName), userId);
             }
+            UpdateEvent(sender, e);
         }
 
         private void butDelete_Click(object sender, EventArgs e)
         {
-            string sconn = "Data Source=1-ПК;Initial Catalog=DataBase2;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework";
-            SqlConnection sc = new SqlConnection(sconn);
-            sc.Open();
-            DbFile dfile = db.DbFile.FirstOrDefault(f => f.FileName == listBoxDelete.SelectedItem.ToString());
-            int id = dfile.Id;
-            SqlCommand cmd = new SqlCommand("DELETE FROM [DbFile] WHERE [Id] = @Id", sc);
-            cmd.Parameters.AddWithValue("Id", id);
-            cmd.ExecuteNonQuery();
-            butUpdateDelete_Click(sender,e);
+            DbFile dFile = db.DbFile.FirstOrDefault(f => f.FileName == listBoxUserFiles.SelectedItem.ToString());
+            db.DbFile.Remove(dFile);
+            db.SaveChanges();
+            UpdateEvent(sender, e);
         }
 
-        private void butUpdate_Click(object sender, EventArgs e)
+        private void UpdateEvent(object sender, EventArgs e)
         {
-            listBoxSelect.Items.Clear();
-            string sconn = "Data Source=1-ПК;Initial Catalog=DataBase2;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework";
-            SqlConnection sc = new SqlConnection(sconn);
-            sc.Open();
-            SqlDataReader dr = null;
-            SqlCommand cmd = new SqlCommand("Select * from [DbFile]", sc);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
+            listBoxUserFiles.Items.Clear();
+            IEnumerable<DbFile> files = db.DbFile.Where(f => f.UserId == userId);
+            foreach (DbFile file in files)
             {
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                {
-                    listBoxSelect.Items.Add(dr["FileName"]);
-                    listBoxDelete.Items.Add(dr["FileName"]);
-                }
-            }
-        }
-
-        private void butUpdateDelete_Click(object sender, EventArgs e)
-        {
-            listBoxDelete.Items.Clear();
-            string sconn = "Data Source=1-ПК;Initial Catalog=DataBase2;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework";
-            SqlConnection sc = new SqlConnection(sconn);
-            sc.Open();
-            SqlDataReader dr = null;
-            SqlCommand cmd = new SqlCommand("Select * from [DbFile]", sc);
-            dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                if (Convert.ToInt32(dr["UserId"]) == userId)
-                {
-                    listBoxDelete.Items.Add(dr["FileName"]);
-                    listBoxSelect.Items.Add(dr["FileName"]);
-                }
+                listBoxUserFiles.Items.Add(file.FileName);
             }
         }
     }

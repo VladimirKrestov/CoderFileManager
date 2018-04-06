@@ -15,8 +15,7 @@ namespace DataBase
 
             byte[] arrayBytes = File.ReadAllBytes(filePath); //Создание массива байтов из файла
             string[] arrayStringBytes = new string[arrayBytes.Length];
-
-            #region Запись чисел в 3 ячейки
+            
             for (int i = 0; i < arrayBytes.Length; i++)
             {
                 if (arrayBytes[i] < 100)
@@ -26,14 +25,12 @@ namespace DataBase
                 }
                 else arrayStringBytes[i] = Convert.ToString(arrayBytes[i]);
             }
-            #endregion
-
+            
             //StreamWriter sre = new StreamWriter("Promegut.txt");
             //foreach (string tmp in arrayStringBytes)
             //    sre.Write(tmp);
             //sre.Close();
-
-            #region Кодирование файла
+            
             string codeFile = "";
             int j = 0, k = 0;
             for (int i = 0; i < arrayStringBytes.Length; i++)
@@ -85,10 +82,9 @@ namespace DataBase
                 }
             }
             //codeFile.Close();
-            #endregion
-
+            
             DbFile s = new DbFile();
-            s.CodetFile = "19";
+            s.CodetFile = codeFile;
             s.UserId = userId;
             s.FileName = fileName;
             db.DbFile.Add(s);

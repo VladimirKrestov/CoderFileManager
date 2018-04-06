@@ -7,16 +7,12 @@ using System.Threading.Tasks;
 
 namespace DataBase
 {
-    class Decod
+    class Decoding
     {
-        public void Decoding(string codePath, string filePath)
+        DB db = new DB();
+        public Decoding(string codePath, string filePath, string stringCode)
         {
-            StreamReader codeFile = new StreamReader(codePath);
-            string stringCode = codeFile.ReadToEnd();
-
             string stringInterimCode = "";
-
-            #region Промежуточная строка кода
             string[] midCode = stringCode.Split('-');
 
             string tmp;
@@ -25,6 +21,7 @@ namespace DataBase
             {
                 if ((midCode[j].Length - 1) % 3 == 0)
                 {
+
                     ID = Convert.ToInt32(midCode[j].Substring(0, 1));
                     tmp = midCode[j].Substring(1, midCode[j].Length - 1);
                     for (int i = 1; i <= ID; i++)
@@ -43,9 +40,7 @@ namespace DataBase
                     }
                 }
             }
-            #endregion
 
-            #region Создание массива байтов из промежуточной строки кода
             byte[] resultArrayBytes = new byte[(stringInterimCode.Length) / 3];
             int t = 0;
             for (int i = 0; i < stringInterimCode.Length / 3; i++)
@@ -55,7 +50,6 @@ namespace DataBase
                     + Convert.ToString(stringInterimCode[t + 2]));
                 t += 3;
             }
-            #endregion
 
             File.WriteAllBytes(filePath, resultArrayBytes); //Создание файла из массива байтов
         }

@@ -20,14 +20,12 @@ namespace DataBase
             InitializeComponent();
         }
 
-
-
         private void butSignIn_Click(object sender, EventArgs e)
         {
             DBUser user = db.DBUser.FirstOrDefault(u => u.Login == login.Text && u.Password == pass.Text);
             if (user != null)
             {
-                FocusForm2(user.Name,user.Id);
+                FocusForm2(user.Name, user.Id);
             }
             else MessageBox.Show("Нет такого!");
         }
