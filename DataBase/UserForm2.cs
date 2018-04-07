@@ -17,7 +17,9 @@ namespace DataBase
     {
         int userId;
         DB db = new DB();
+        public static string addFileName;
 
+       
         public UserForm2(string userName, int userId)
         {
             this.userId = userId;
@@ -42,7 +44,7 @@ namespace DataBase
                 {
                     Decoding decodeCode = new Decoding(dlg.FileName, Path.GetFileName(dlg.FileName), dFile.CodetFile);
                 }
-                Process.Start(dlg.FileName);vbzDvbvbxzvc
+                Process.Start(dlg.FileName);
             }
         }
 
@@ -52,9 +54,10 @@ namespace DataBase
             dlg.Filter = "Все файлы| *.*";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                Coding codeFile = new Coding(dlg.FileName, Path.GetFileName(dlg.FileName), userId);
+                AddNameForm form4 = new AddNameForm(dlg.FileName, Path.GetFileName(dlg.FileName), userId, this);
+                form4.Visible = true;
+                form4.Focus();
             }
-            UpdateEvent(sender, e);
         }
 
         private void butDelete_Click(object sender, EventArgs e)
@@ -62,10 +65,10 @@ namespace DataBase
             DbFile dFile = db.DbFile.FirstOrDefault(f => f.FileName == listBoxUserFiles.SelectedItem.ToString());
             db.DbFile.Remove(dFile);
             db.SaveChanges();
-            UpdateEvent(sender, e);
+            UpdateEvent();
         }
 
-        private void UpdateEvent(object sender, EventArgs e)
+        public void UpdateEvent()
         {
             listBoxUserFiles.Items.Clear();
             IEnumerable<DbFile> files = db.DbFile.Where(f => f.UserId == userId);
