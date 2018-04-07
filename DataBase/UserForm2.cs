@@ -62,7 +62,7 @@ namespace DataBase
 
         private void butDelete_Click(object sender, EventArgs e)
         {
-            DbFile dFile = db.DbFile.FirstOrDefault(f => f.FileName == listBoxUserFiles.SelectedItem.ToString());
+            DbFile dFile = db.DbFile.FirstOrDefault(f => f.FileName == listBoxUserFiles.SelectedItem.ToString() && f.UserId == userId);
             db.DbFile.Remove(dFile);
             db.SaveChanges();
             UpdateEvent();
